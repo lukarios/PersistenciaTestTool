@@ -27,13 +27,12 @@
     <class>br.org.fdte.persistence.SuiteValidacaoTesteValidacao</class>
     <class>br.org.fdte.persistence.SuiteSequenciaPorCaracterizacaoTesteSequencia</class>
     <class>br.org.fdte.persistence.ClasseValidacao</class>
-    <class>br.org.fdte.persistence.Config</class>
+    <class>br.org.fdte.persistence.Config</class>    
     <properties>
-      <property name="eclipselink.jdbc.password" value="admin"/>      
-      <property name="eclipselink.jdbc.user" value="admin"/>
+      <property name="eclipselink.jdbc.password" value="admin"/>
+      <property name="eclipselink.jdbc.user" value="postgres"/>
       <property name="eclipselink.jdbc.driver" value="org.postgresql.Driver"/>
       <property name="eclipselink.jdbc.url" value="jdbc:postgresql://127.0.0.1:5432/test_tool"/>
-    <property name="eclipselink.jdbc.user" value="postgres"/>
-      !<property name="javax.persistence.jdbc.password" value="admin"/><property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/><property name="javax.persistence.jdbc.user" value="postgres"/><property name="javax.persistence.jdbc.url" value="jdbc:postgresql://127.0.0.1:5432/test_tool"/></properties>
+    </properties>
   </persistence-unit>
 </persistence>
