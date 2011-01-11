@@ -3,6 +3,9 @@ package br.org.fdte.dao;
 import br.org.fdte.persistence.Config;
 import javax.persistence.EntityTransaction;
 import br.connection.db.persistencia.TesteDBManager;
+import java.util.Collections;
+
+import java.util.List;
 import javax.persistence.Query;
 
 public class ConfigDao {
@@ -25,6 +28,22 @@ public class ConfigDao {
        TesteDBManager.closeConnection();
 
        return configRetornado;
+
+    }
+
+    public static List getAll() {
+
+       EntityTransaction transaction = TesteDBManager.entityManager().getTransaction();
+       transaction.begin();
+
+       Query q = TesteDBManager.entityManager().createNamedQuery("Config.findAll");
+
+       List<Config> lstConfig = q.getResultList();
+       
+       transaction.commit();
+       TesteDBManager.closeConnection();
+
+       return lstConfig;
 
     }
 
