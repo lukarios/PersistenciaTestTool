@@ -14,8 +14,12 @@ public class ConfigDao {
 
        Query q = TesteDBManager.entityManager().createNamedQuery("Config.findById");
        q.setParameter("id", id);
+       
+       Config configRetornado = null;
 
-       Config configRetornado = (Config)q.getResultList().get(0);
+       if (q.getResultList().size() > 0) {
+           configRetornado = (Config)q.getResultList().get(0);
+       }
 
        transaction.commit();
        TesteDBManager.closeConnection();
@@ -33,9 +37,9 @@ public class ConfigDao {
         transaction.begin();
 
         if (cfgSalva != null) {
-            cfgSalva.setWorflowDir(config.getWorflowDir());
-            cfgSalva.setTesteCaseDir(config.getTesteCaseDir());
-            cfgSalva.setResultDir(config.getResultDir());
+            cfgSalva.setWorkflowdir(config.getWorkflowdir());
+            cfgSalva.setTestecasedir(config.getTestecasedir());
+            cfgSalva.setResultdir(config.getResultdir());
             TesteDBManager.entityManager().merge(cfgSalva);
             retorno = 1;
         }
