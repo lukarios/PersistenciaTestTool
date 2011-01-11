@@ -4,7 +4,6 @@ import br.org.fdte.persistence.ClasseEquivalencia;
 import br.connection.db.persistencia.TesteDBManager;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import javax.persistence.RollbackException;
