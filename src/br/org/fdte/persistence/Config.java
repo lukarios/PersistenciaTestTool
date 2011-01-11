@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package br.org.fdte.persistence;
 
 import java.io.Serializable;
@@ -16,30 +11,31 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name = "config")
 @NamedQueries({
     @NamedQuery(name = "Config.findAll", query = "SELECT c FROM Config c"),
-    @NamedQuery(name = "Config.findByWorflowDir", query = "SELECT c FROM Config c WHERE c.worflowDir = :worflowDir"),
+    @NamedQuery(name = "Config.findByWorkflowdir", query = "SELECT c FROM Config c WHERE c.workflowdir = :workflowdir"),
     @NamedQuery(name = "Config.findById", query = "SELECT c FROM Config c WHERE c.id = :id"),
-    @NamedQuery(name = "Config.findByTesteCaseDir", query = "SELECT c FROM Config c WHERE c.testeCaseDir = :testeCaseDir"),
-    @NamedQuery(name = "Config.findByResultDir", query = "SELECT c FROM Config c WHERE c.resultDir = :resultDir")})
+    @NamedQuery(name = "Config.findByTestecasedir", query = "SELECT c FROM Config c WHERE c.testecasedir = :testecasedir"),
+    @NamedQuery(name = "Config.findByResultdir", query = "SELECT c FROM Config c WHERE c.resultdir = :resultdir")})
 public class Config implements Serializable {
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
-    @Column(name = "worflowDir")
-    private String worflowDir;
+    @Column(name = "workflowdir")
+    private String workflowdir;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Long id;
     @Basic(optional = false)
-    @Column(name = "testeCaseDir")
-    private String testeCaseDir;
+    @Column(name = "testecasedir")
+    private String testecasedir;
     @Basic(optional = false)
-    @Column(name = "resultDir")
-    private String resultDir;
+    @Column(name = "resultdir")
+    private String resultdir;
 
     public Config() {
     }
@@ -48,19 +44,19 @@ public class Config implements Serializable {
         this.id = id;
     }
 
-    public Config(Long id, String worflowDir, String testeCaseDir, String resultDir) {
+    public Config(Long id, String workflowdir, String testecasedir, String resultdir) {
         this.id = id;
-        this.worflowDir = worflowDir;
-        this.testeCaseDir = testeCaseDir;
-        this.resultDir = resultDir;
+        this.workflowdir = workflowdir;
+        this.testecasedir = testecasedir;
+        this.resultdir = resultdir;
     }
 
-    public String getWorflowDir() {
-        return worflowDir;
+    public String getWorkflowdir() {
+        return workflowdir;
     }
 
-    public void setWorflowDir(String worflowDir) {
-        this.worflowDir = worflowDir;
+    public void setWorkflowdir(String workflowdir) {
+        this.workflowdir = workflowdir;
     }
 
     public Long getId() {
@@ -71,20 +67,20 @@ public class Config implements Serializable {
         this.id = id;
     }
 
-    public String getTesteCaseDir() {
-        return testeCaseDir;
+    public String getTestecasedir() {
+        return testecasedir;
     }
 
-    public void setTesteCaseDir(String testeCaseDir) {
-        this.testeCaseDir = testeCaseDir;
+    public void setTestecasedir(String testecasedir) {
+        this.testecasedir = testecasedir;
     }
 
-    public String getResultDir() {
-        return resultDir;
+    public String getResultdir() {
+        return resultdir;
     }
 
-    public void setResultDir(String resultDir) {
-        this.resultDir = resultDir;
+    public void setResultdir(String resultdir) {
+        this.resultdir = resultdir;
     }
 
     @Override
