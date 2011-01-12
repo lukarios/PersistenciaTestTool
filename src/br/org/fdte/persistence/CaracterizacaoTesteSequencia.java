@@ -49,6 +49,8 @@ public class CaracterizacaoTesteSequencia implements Serializable {
     private String nome;
     @Column(name = "comentario", length = 255)
     private String comentario;
+    @Column(name = "workflow", length = 255)
+    private String workflow;
     @JoinTable(name = "suite_sequencia_por_caracterizacao_teste_sequencia", joinColumns = {@JoinColumn(name = "id_caracterizacao_teste_sequencia", referencedColumnName = "id", nullable = false)}, inverseJoinColumns = {@JoinColumn(name = "id_suite_sequencia", referencedColumnName = "id", nullable = false)})
     @ManyToMany
     private Collection<SuiteTesteSequencia> suiteTesteSequenciaCollection;
@@ -83,6 +85,14 @@ public class CaracterizacaoTesteSequencia implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getWorkflow() {
+        return workflow;
+    }
+
+    public void setWorkflow(String workflow) {
+        this.workflow = workflow;
     }
 
     public String getComentario() {
