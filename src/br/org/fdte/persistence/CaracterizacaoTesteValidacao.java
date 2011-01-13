@@ -49,8 +49,6 @@ public class CaracterizacaoTesteValidacao implements Serializable, Comparable<Ca
     @Basic(optional = false)
     @Column(name = "nome", nullable = false, length = 2147483647)
     private String nome;
-    @Column(name = "workflow", length = 255)
-    private String workflow;
     @Column(name = "classe_validacao_saida_positiva", length = 255)
     private String classeValidacaoSaidaPositiva;
     @Column(name = "xsd_saida_positiva", length = 255)
@@ -111,14 +109,6 @@ public class CaracterizacaoTesteValidacao implements Serializable, Comparable<Ca
         this.casosOpcionais = casosOpcionais;
         this.casosRepeticoes = casosRepeticoes;
         this.casosRegras = casosRegras;
-    }
-
-    public String getWorkflow() {
-        return workflow;
-    }
-
-    public void setWorkflow(String workflow) {
-        this.workflow = workflow;
     }
 
     public Long getId() {

@@ -2,7 +2,6 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package br.org.fdte.persistence;
 
 import java.io.Serializable;
@@ -22,14 +21,25 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "suite_validacao_teste_validacao")
-@NamedQueries({@NamedQuery(name = "SuiteValidacaoTesteValidacao.findAll", query = "SELECT s FROM SuiteValidacaoTesteValidacao s"), @NamedQuery(name = "SuiteValidacaoTesteValidacao.findByOrderId", query = "SELECT s FROM SuiteValidacaoTesteValidacao s WHERE s.orderId = :orderId"), @NamedQuery(name = "SuiteValidacaoTesteValidacao.findByIdSuiteValidacao", query = "SELECT s FROM SuiteValidacaoTesteValidacao s WHERE s.suiteValidacaoTesteValidacaoPK.idSuiteValidacao = :idSuiteValidacao"), @NamedQuery(name = "SuiteValidacaoTesteValidacao.findByIdCaracterizacaoTesteValidacao", query = "SELECT s FROM SuiteValidacaoTesteValidacao s WHERE s.suiteValidacaoTesteValidacaoPK.idCaracterizacaoTesteValidacao = :idCaracterizacaoTesteValidacao")})
+@NamedQueries({
+    @NamedQuery(name = "SuiteValidacaoTesteValidacao.findAll", query = "SELECT s FROM SuiteValidacaoTesteValidacao s"),
+    @NamedQuery(name = "SuiteValidacaoTesteValidacao.findByOrderId", query = "SELECT s FROM SuiteValidacaoTesteValidacao s WHERE s.orderId = :orderId"),
+    @NamedQuery(name = "SuiteValidacaoTesteValidacao.findByIdSuiteValidacao", query = "SELECT s FROM SuiteValidacaoTesteValidacao s WHERE s.suiteValidacaoTesteValidacaoPK.idSuiteValidacao = :idSuiteValidacao"),
+    @NamedQuery(name = "SuiteValidacaoTesteValidacao.findByIdCaracterizacaoTesteValidacao", query = "SELECT s FROM SuiteValidacaoTesteValidacao s WHERE s.suiteValidacaoTesteValidacaoPK.idCaracterizacaoTesteValidacao = :idCaracterizacaoTesteValidacao")})
 public class SuiteValidacaoTesteValidacao implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected SuiteValidacaoTesteValidacaoPK suiteValidacaoTesteValidacaoPK;
     @Basic(optional = false)
     @Column(name = "order_id")
     private long orderId;
+    @Column(name = "workflow", nullable = true, length = 255)
+    private String workflow;
+    @Column(name = "testcase", nullable = true, length = 255)
+    private String testCase;
+    @Column(name = "result_dir", nullable = true, length = 255)
+    private String result;
     @JoinColumn(name = "id_caracterizacao_teste_validacao", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private CaracterizacaoTesteValidacao caracterizacaoTesteValidacao;
@@ -85,6 +95,30 @@ public class SuiteValidacaoTesteValidacao implements Serializable {
         this.suiteTesteValidacao = suiteTesteValidacao;
     }
 
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
+
+    public String getTestCase() {
+        return testCase;
+    }
+
+    public void setTestCase(String testCase) {
+        this.testCase = testCase;
+    }
+
+    public String getWorkflow() {
+        return workflow;
+    }
+
+    public void setWorkflow(String workflow) {
+        this.workflow = workflow;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -109,5 +143,4 @@ public class SuiteValidacaoTesteValidacao implements Serializable {
     public String toString() {
         return "br.org.fdte.persistence.SuiteValidacaoTesteValidacao[suiteValidacaoTesteValidacaoPK=" + suiteValidacaoTesteValidacaoPK + "]";
     }
-
 }
