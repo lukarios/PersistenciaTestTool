@@ -55,14 +55,14 @@ public class TemplateDocumento implements Serializable, Comparable<TemplateDocum
     private String tipoFisico;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTemplateDocumento")
     private Collection<Atributo> atributoCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTemplateDocumento")
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "idTemplateDocumento")
     private Collection<Regra> regraCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "documentoEntrada")
+    /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "documentoEntrada")
     private Collection<CaracterizacaoTesteValidacao> caracterizacaoTesteValidacaoCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "documentoSaidaPositiva")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "documentoSaidaPositiva")    
     private Collection<CaracterizacaoTesteValidacao> caracterizacaoTesteValidacaoCollection1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "documentoSaidaNegativa")
-    private Collection<CaracterizacaoTesteValidacao> caracterizacaoTesteValidacaoCollection2;
+    private Collection<CaracterizacaoTesteValidacao> caracterizacaoTesteValidacaoCollection2;*/
 
     public TemplateDocumento() {
     }
@@ -134,7 +134,7 @@ public class TemplateDocumento implements Serializable, Comparable<TemplateDocum
         this.regraCollection = regraCollection;
     }
 
-    public Collection<CaracterizacaoTesteValidacao> getCaracterizacaoTesteValidacaoCollection() {
+    /*public Collection<CaracterizacaoTesteValidacao> getCaracterizacaoTesteValidacaoCollection() {
         return caracterizacaoTesteValidacaoCollection;
     }
 
@@ -156,7 +156,7 @@ public class TemplateDocumento implements Serializable, Comparable<TemplateDocum
 
     public void setCaracterizacaoTesteValidacaoCollection2(Collection<CaracterizacaoTesteValidacao> caracterizacaoTesteValidacaoCollection2) {
         this.caracterizacaoTesteValidacaoCollection2 = caracterizacaoTesteValidacaoCollection2;
-    }
+    }*/
 
     @Override
     public int hashCode() {
