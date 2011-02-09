@@ -46,8 +46,8 @@ public class TipoClasseEquivalencia implements Serializable {
     @Basic(optional = false)
     @Column(name = "tipo_classe_equivalencia", nullable = false, length = 10)
     private String tipoClasseEquivalencia;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipo")
-    private Collection<ClasseEquivalencia> classeEquivalenciaCollection;
+   /* @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipo")
+    private Collection<ClasseEquivalencia> classeEquivalenciaCollection;*/
 
     public TipoClasseEquivalencia() {
     }
@@ -76,14 +76,14 @@ public class TipoClasseEquivalencia implements Serializable {
     public void setTipoClasseEquivalencia(String tipoClasseEquivalencia) {
         this.tipoClasseEquivalencia = tipoClasseEquivalencia;
     }
-
+/*
     public Collection<ClasseEquivalencia> getClasseEquivalenciaCollection() {
         return classeEquivalenciaCollection;
     }
 
     public void setClasseEquivalenciaCollection(Collection<ClasseEquivalencia> classeEquivalenciaCollection) {
         this.classeEquivalenciaCollection = classeEquivalenciaCollection;
-    }
+    }*/
 
     @Override
     public int hashCode() {
