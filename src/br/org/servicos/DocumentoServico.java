@@ -12,7 +12,6 @@ public class DocumentoServico {
 
     EntityManager manager;
 
-
     public boolean save(TemplateDocumento doc) {
 
         boolean isNewDocument = false;
@@ -28,9 +27,16 @@ public class DocumentoServico {
 
             TemplateDocumento docObtido = docDao.getByName(doc.getNome());
 
+            //não encontrado documento pelo nome
             if (docObtido == null) {
-                docDao.save(doc);
-                isNewDocument = true;
+                if (doc.getId() == null) {
+                    docDao.save(doc);
+                    isNewDocument = true;
+                } else {
+                    docDao.update(doc);
+                }
+                //o documento possui id isto é, ele já existe
+                //somente o seu nome foi alterado
             } else {
 
                 docObtido.setArquivoXsd(doc.getArquivoXsd());
@@ -48,7 +54,7 @@ public class DocumentoServico {
                 }
 
                 docObtido.setAtributoCollection(doc.getAtributoCollection());
-               
+
             }
 
             et.commit();
@@ -61,42 +67,42 @@ public class DocumentoServico {
 
     /*public void save(TemplateDocumento doc) {
 
-        this.manager = DBManager.openManager();
+    this.manager = DBManager.openManager();
 
-        DocumentoDAO docDao = new DocumentoDAO(manager);
-        AtributoDAO attDao = new AtributoDAO(manager);
+    DocumentoDAO docDao = new DocumentoDAO(manager);
+    AtributoDAO attDao = new AtributoDAO(manager);
 
-        EntityTransaction et = this.manager.getTransaction();
-        try {
-            et.begin();
+    EntityTransaction et = this.manager.getTransaction();
+    try {
+    et.begin();
 
-            //se o documento nao existe
-            if (doc.getId() == null)
-                docDao.save(doc);
-            else {
+    //se o documento nao existe
+    if (doc.getId() == null)
+    docDao.save(doc);
+    else {
 
-                //for (Atributo att : doc.getAtributoCollection()) {
-                   // attDao.delete(att);
-                //}
-                attDao.deleteAll(doc);
+    //for (Atributo att : doc.getAtributoCollection()) {
+    // attDao.delete(att);
+    //}
+    attDao.deleteAll(doc);
 
-                for (Atributo att : doc.getAtributoCollection()) {
-                    att.setIdTemplateDocumento(doc);
-                    attDao.save(att);
-                }
-
-                doc.setAtributoCollection(doc.getAtributoCollection());
-                docDao.update(doc);
-
-            }
-
-            et.commit();
-        } catch (Exception ex) {
-            et.rollback();
-            System.out.println(ex.getMessage());
-        }
+    for (Atributo att : doc.getAtributoCollection()) {
+    att.setIdTemplateDocumento(doc);
+    attDao.save(att);
     }
-*/
+
+    doc.setAtributoCollection(doc.getAtributoCollection());
+    docDao.update(doc);
+
+    }
+
+    et.commit();
+    } catch (Exception ex) {
+    et.rollback();
+    System.out.println(ex.getMessage());
+    }
+    }
+     */
 
     /*public void update(TemplateDocumento doc) {
 
@@ -122,7 +128,7 @@ public class DocumentoServico {
 
             this.manager = DBManager.openManager();
             this.manager.getTransaction().begin();
-            
+
             DocumentoDAO docDao = new DocumentoDAO(manager);
             AtributoDAO atributoDao = new AtributoDAO(manager);
             TemplateDocumento doc = docDao.getByName(docName);
@@ -139,7 +145,7 @@ public class DocumentoServico {
         }
     }
 
-   public TemplateDocumento getByName(String nome) {
+    public TemplateDocumento getByName(String nome) {
 
         TemplateDocumento doc = null;
 

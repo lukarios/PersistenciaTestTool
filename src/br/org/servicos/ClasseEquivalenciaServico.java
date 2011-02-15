@@ -90,9 +90,17 @@ public class ClasseEquivalenciaServico {// implements ServiceInterface {
             ClasseEquivalenciaDAO ceDao = new ClasseEquivalenciaDAO(manager);
             ClasseEquivalencia ceObtida = ceDao.getByName(ce.getNome());
 
-            if (ceObtida == null) {                
-                ceDao.save(ce);
-                isNewCE = true;
+            //não encontrada classe de equivalencia pelo nome
+            if (ceObtida == null) {
+                if (ce.getId() == null) {
+                    ceDao.save(ce);
+                    isNewCE = true;
+                }
+                //a classe euivalencia possui id isto é, ela já existe
+                //somente o seu nome foi alterado
+                else {
+                    ceDao.update(ce);
+                }
 
             } else {
 
@@ -105,7 +113,7 @@ public class ClasseEquivalenciaServico {// implements ServiceInterface {
                     valorDAO.delete(valor);
                 }
 
-               for (Valor valor : ce.getValorCollection()) {                
+                for (Valor valor : ce.getValorCollection()) {
                     valor.setIdClasseEquivalencia(ceObtida);
                     valorDAO.save(valor);
                 }

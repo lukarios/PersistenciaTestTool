@@ -27,8 +27,14 @@ public class CaracterizacaoTesteValidacaoServico {
             EspecificoDAO especificoDao = new EspecificoDAO(manager);
 
             caracterizacao.setDocumentoEntrada(documentoDao.getByName(caracterizacao.getDocumentoEntrada().getNome()));
-            caracterizacao.setDocumentoSaidaNegativa(documentoDao.getByName(caracterizacao.getDocumentoSaidaNegativa().getNome()));
-            caracterizacao.setDocumentoSaidaPositiva(documentoDao.getByName(caracterizacao.getDocumentoSaidaPositiva().getNome()));
+
+            if (caracterizacao.getDocumentoSaidaNegativa() != null) {
+                caracterizacao.setDocumentoSaidaNegativa(documentoDao.getByName(caracterizacao.getDocumentoSaidaNegativa().getNome()));
+            }
+
+            if (caracterizacao.getDocumentoSaidaPositiva() != null) {
+                caracterizacao.setDocumentoSaidaPositiva(documentoDao.getByName(caracterizacao.getDocumentoSaidaPositiva().getNome()));
+            }
 
             CaracterizacaoTesteValidacao caractObtida = caractDao.getByName(caracterizacao.getNome());
 
@@ -86,7 +92,7 @@ public class CaracterizacaoTesteValidacaoServico {
 
     public void delete(String nomeCaracterizacao) {
 
-       try {
+        try {
 
             this.manager = DBManager.openManager();
             this.manager.getTransaction().begin();
