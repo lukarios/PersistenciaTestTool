@@ -5,7 +5,6 @@ import br.org.dao.DocumentoDAO;
 import br.org.dao.EspecificoDAO;
 import br.org.fdte.persistence.CaracterizacaoTesteValidacao;
 import br.org.fdte.persistence.Especificos;
-import br.org.fdte.persistence.TemplateDocumento;
 import java.util.List;
 import javax.persistence.EntityManager;
 
@@ -39,8 +38,12 @@ public class CaracterizacaoTesteValidacaoServico {
             CaracterizacaoTesteValidacao caractObtida = caractDao.getByName(caracterizacao.getNome());
 
             if (caractObtida == null) {
-                isNewCaracterizacao = true;
-                caractDao.save(caracterizacao);
+                if (caracterizacao.getId() != null) {
+                    caractDao.update(caracterizacao);
+                } else {
+                    isNewCaracterizacao = true;
+                    caractDao.save(caracterizacao);
+                }
             } else {
                 caractObtida.setCasosNegativos(caracterizacao.getCasosNegativos());
                 caractObtida.setCasosPositivos(caracterizacao.getCasosPositivos());
@@ -62,7 +65,6 @@ public class CaracterizacaoTesteValidacaoServico {
 
                 caractObtida.setEspecificosCollection(caracterizacao.getEspecificosCollection());
                 caractDao.update(caractObtida);
-
             }
 
             this.manager.getTransaction().commit();
