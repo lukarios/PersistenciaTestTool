@@ -49,17 +49,21 @@ public class SuiteServico {
             SuiteTesteValidacao suiteObtida = suiteDao.getByName(suite.getNome());
 
             if (suiteObtida == null) {
-                isNewSuite = true;
-                suiteDao.save(suite);
 
-                suiteObtida = suiteDao.getByName(suite.getNome());
-                //salvar os relacionamentos existentes na lista recebida como parametro
-                for (SuiteValidacaoTesteValidacao svtv : list) {
-                    svtv.setSuiteTesteValidacao(suiteObtida);
-                    suiteValTesteValDao.save(svtv);
+                if (suite.getId() != null) {
+                    suiteDao.update(suite);
+                } else {
+                    isNewSuite = true;
+                    suiteDao.save(suite);
+
+                    //salvar os relacionamentos existentes na lista recebida como parametro
+                    for (SuiteValidacaoTesteValidacao svtv : list) {
+                        svtv.setSuiteTesteValidacao(suite);
+                        suiteValTesteValDao.save(svtv);
+                    }
                 }
-            } else {
 
+            } else {
                 //remover os relacionamentos existentes da suite obtida com as caracterizacoes teste de validacao
                 for (SuiteValidacaoTesteValidacao svtv : suiteValTesteValDao.getBySuite(suiteObtida)) {
                     suiteValTesteValDao.delete(svtv);
