@@ -2,11 +2,16 @@ package br.org.servicos;
 
 import br.org.dao.AtributoDAO;
 import br.org.dao.DocumentoDAO;
+import br.org.dao.RegraDAO;
+
 import br.org.fdte.persistence.Atributo;
+import br.org.fdte.persistence.Regra;
 import br.org.fdte.persistence.TemplateDocumento;
-import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+
+import java.util.List;
 
 public class DocumentoServico {
 
@@ -20,6 +25,7 @@ public class DocumentoServico {
 
         DocumentoDAO docDao = new DocumentoDAO(manager);
         AtributoDAO attDao = new AtributoDAO(manager);
+        RegraDAO regraDao = new RegraDAO(manager);
 
         EntityTransaction et = this.manager.getTransaction();
         try {
@@ -32,13 +38,13 @@ public class DocumentoServico {
                 if (doc.getId() == null) {
                     docDao.save(doc);
                     isNewDocument = true;
-                } else {
+                } //o documento possui id isto é, ele já existe
+                //somente o seu nome foi alterado
+                else {
                     docDao.update(doc);
                 }
-                //o documento possui id isto é, ele já existe
-                //somente o seu nome foi alterado
-            } else {
 
+            } else {
                 docObtido.setArquivoXsd(doc.getArquivoXsd());
                 docObtido.setDirecao(doc.getDirecao());
                 docObtido.setRegraCollection(doc.getRegraCollection());
@@ -53,7 +59,17 @@ public class DocumentoServico {
                     attDao.save(att);
                 }
 
+                for (Regra regra : docObtido.getRegraCollection()) {
+                    regraDao.delete(regra);
+                }
+
+                for(Regra regra : doc.getRegraCollection()) {
+                    regra.setIdTemplateDocumento(docObtido);
+                    regraDao.save(regra);
+                }
+
                 docObtido.setAtributoCollection(doc.getAtributoCollection());
+                docObtido.setRegraCollection(doc.getRegraCollection());
 
             }
 
@@ -65,63 +81,6 @@ public class DocumentoServico {
         return isNewDocument;
     }
 
-    /*public void save(TemplateDocumento doc) {
-
-    this.manager = DBManager.openManager();
-
-    DocumentoDAO docDao = new DocumentoDAO(manager);
-    AtributoDAO attDao = new AtributoDAO(manager);
-
-    EntityTransaction et = this.manager.getTransaction();
-    try {
-    et.begin();
-
-    //se o documento nao existe
-    if (doc.getId() == null)
-    docDao.save(doc);
-    else {
-
-    //for (Atributo att : doc.getAtributoCollection()) {
-    // attDao.delete(att);
-    //}
-    attDao.deleteAll(doc);
-
-    for (Atributo att : doc.getAtributoCollection()) {
-    att.setIdTemplateDocumento(doc);
-    attDao.save(att);
-    }
-
-    doc.setAtributoCollection(doc.getAtributoCollection());
-    docDao.update(doc);
-
-    }
-
-    et.commit();
-    } catch (Exception ex) {
-    et.rollback();
-    System.out.println(ex.getMessage());
-    }
-    }
-     */
-
-    /*public void update(TemplateDocumento doc) {
-
-    try {
-
-    this.manager = DBManager.openManager();
-    this.manager.getTransaction().begin();
-
-
-    DocumentoDAO docDao = new DocumentoDAO(manager);
-    docDao.update(doc);
-
-    this.manager.getTransaction().commit();
-    } catch (Exception excpt) {
-    this.manager.getTransaction().rollback();
-    }
-
-
-    }*/
     public void delete(String docName) {
 
         try {
