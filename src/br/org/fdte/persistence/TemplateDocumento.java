@@ -55,7 +55,8 @@ public class TemplateDocumento implements Serializable, Comparable<TemplateDocum
     private String tipoFisico;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTemplateDocumento")
     private Collection<Atributo> atributoCollection;
-    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "idTemplateDocumento")
+    //lrb 24/02/2011 alterado o cascade type para regraCollection
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTemplateDocumento")
     private Collection<Regra> regraCollection;
     /*@OneToMany(cascade = CascadeType.ALL, mappedBy = "documentoEntrada")
     private Collection<CaracterizacaoTesteValidacao> caracterizacaoTesteValidacaoCollection;

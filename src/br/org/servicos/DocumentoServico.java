@@ -47,7 +47,7 @@ public class DocumentoServico {
             } else {
                 docObtido.setArquivoXsd(doc.getArquivoXsd());
                 docObtido.setDirecao(doc.getDirecao());
-                docObtido.setRegraCollection(doc.getRegraCollection());
+                //docObtido.setRegraCollection(doc.getRegraCollection());
                 docObtido.setTipoFisico(doc.getTipoFisico());
 
                 for (Atributo att : docObtido.getAtributoCollection()) {
@@ -59,17 +59,17 @@ public class DocumentoServico {
                     attDao.save(att);
                 }
 
-                for (Regra regra : docObtido.getRegraCollection()) {
+                /*for (Regra regra : docObtido.getRegraCollection()) {
                     regraDao.delete(regra);
                 }
 
                 for(Regra regra : doc.getRegraCollection()) {
                     regra.setIdTemplateDocumento(docObtido);
                     regraDao.save(regra);
-                }
+                }*/
 
                 docObtido.setAtributoCollection(doc.getAtributoCollection());
-                docObtido.setRegraCollection(doc.getRegraCollection());
+                //docObtido.setRegraCollection(doc.getRegraCollection());
 
             }
 
@@ -90,7 +90,12 @@ public class DocumentoServico {
 
             DocumentoDAO docDao = new DocumentoDAO(manager);
             AtributoDAO atributoDao = new AtributoDAO(manager);
+            RegraDAO regraDao = new RegraDAO(manager);
             TemplateDocumento doc = docDao.getByName(docName);
+
+            for(Regra regra : doc.getRegraCollection()) {
+                regraDao.delete(regra);
+            }
 
             for (Atributo att : doc.getAtributoCollection()) {
                 atributoDao.delete(att);
