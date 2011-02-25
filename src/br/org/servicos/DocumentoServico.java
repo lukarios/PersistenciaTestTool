@@ -25,7 +25,6 @@ public class DocumentoServico {
 
         DocumentoDAO docDao = new DocumentoDAO(manager);
         AtributoDAO attDao = new AtributoDAO(manager);
-        RegraDAO regraDao = new RegraDAO(manager);
 
         EntityTransaction et = this.manager.getTransaction();
         try {
@@ -38,6 +37,15 @@ public class DocumentoServico {
                 if (doc.getId() == null) {
                     docDao.save(doc);
                     isNewDocument = true;
+
+                    //lrb 25/02/2011
+                    //salvar as regras que foram vinculadas ao documento criado,
+                    //pois pode-se estar copiando um documento existente
+                    /*RegraDAO regraDao = new RegraDAO(manager);
+                    for (Regra regra : doc.getRegraCollection()) {
+                        regra.setIdTemplateDocumento(doc);
+                        regraDao.save(regra);
+                    }*/
                 } //o documento possui id isto é, ele já existe
                 //somente o seu nome foi alterado
                 else {
@@ -46,33 +54,23 @@ public class DocumentoServico {
 
             } else {
                 docObtido.setArquivoXsd(doc.getArquivoXsd());
-                docObtido.setDirecao(doc.getDirecao());
-                //docObtido.setRegraCollection(doc.getRegraCollection());
+                docObtido.setDirecao(doc.getDirecao());                
                 docObtido.setTipoFisico(doc.getTipoFisico());
 
                 for (Atributo att : docObtido.getAtributoCollection()) {
                     attDao.delete(att);
                 }
 
+                this.manager.flush();
+
                 for (Atributo att : doc.getAtributoCollection()) {
                     att.setIdTemplateDocumento(docObtido);
                     attDao.save(att);
                 }
 
-                /*for (Regra regra : docObtido.getRegraCollection()) {
-                    regraDao.delete(regra);
-                }
-
-                for(Regra regra : doc.getRegraCollection()) {
-                    regra.setIdTemplateDocumento(docObtido);
-                    regraDao.save(regra);
-                }*/
-
                 docObtido.setAtributoCollection(doc.getAtributoCollection());
-                //docObtido.setRegraCollection(doc.getRegraCollection());
-
+                
             }
-
             et.commit();
         } catch (Exception ex) {
             et.rollback();
@@ -93,7 +91,7 @@ public class DocumentoServico {
             RegraDAO regraDao = new RegraDAO(manager);
             TemplateDocumento doc = docDao.getByName(docName);
 
-            for(Regra regra : doc.getRegraCollection()) {
+            for (Regra regra : doc.getRegraCollection()) {
                 regraDao.delete(regra);
             }
 
