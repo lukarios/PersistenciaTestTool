@@ -24,12 +24,6 @@ public class AtributoDAO {
 
     public void update(Atributo att) {
         this.manager.persist(att);
-    }
-
-   /* public void deleteAll(TemplateDocumento doc) {
-        Query q = this.manager.createNamedQuery("Atributo.removeAllByTemplateDocId");
-        q.setParameter("idTemplateDocumento", doc);
-
-    }*/
+    }   
 
 }

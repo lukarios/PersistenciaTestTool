@@ -2,9 +2,7 @@ package br.org.servicos;
 
 import br.org.dao.ClasseEquivalenciaDAO;
 import br.org.dao.ValorDAO;
-import br.org.fdte.dao.TipoClasseEquivalenciaDAO;
 import br.org.fdte.persistence.ClasseEquivalencia;
-import br.org.fdte.persistence.TipoClasseEquivalencia;
 import br.org.fdte.persistence.Valor;
 import java.util.List;
 import javax.persistence.EntityManager;
