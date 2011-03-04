@@ -1,20 +1,12 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package br.org.fdte.persistence;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -22,7 +14,6 @@ import javax.persistence.UniqueConstraint;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.SequenceGenerator;
-import javax.persistence.FetchType;
 
 /**
  *
@@ -34,7 +25,6 @@ import javax.persistence.FetchType;
 public class TipoClasseEquivalencia implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-
 
 /*MB */
     @SequenceGenerator( name = "tipo_classe_equivalencia_id_seq", sequenceName = "tipo_classe_equivalencia_id_seq", allocationSize = 1, initialValue = 1 )
@@ -107,7 +97,7 @@ public class TipoClasseEquivalencia implements Serializable {
 
     @Override
     public String toString() {
-        return "br.org.fdte.persistence.TipoClasseEquivalencia[id=" + id + "]";
+        return tipoClasseEquivalencia;
     }
 
 }
