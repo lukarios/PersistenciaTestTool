@@ -68,8 +68,20 @@ public class DocumentoServico {
                     attDao.save(att);
                 }
 
+                RegraDAO regraDao = new RegraDAO(manager);                
+                for (Regra regra : docObtido.getRegraCollection()) {
+                    regraDao.delete(regra);
+                }
+
+                this.manager.flush();
+
+                for (Regra regra : doc.getRegraCollection()) {
+                    regra.setIdTemplateDocumento(docObtido);
+                    regraDao.save(regra);
+                }
+
                 docObtido.setAtributoCollection(doc.getAtributoCollection());
-                
+                docObtido.setRegraCollection(doc.getRegraCollection());
             }
             et.commit();
         } catch (Exception ex) {
