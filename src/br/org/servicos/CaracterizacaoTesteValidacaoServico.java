@@ -49,6 +49,7 @@ public class CaracterizacaoTesteValidacaoServico {
                 caractObtida.setCasosPositivos(caracterizacao.getCasosPositivos());
                 caractObtida.setClasseValidacaoSaidaNegativa(caracterizacao.getClasseValidacaoSaidaNegativa());
                 caractObtida.setClasseValidacaoSaidaPositiva(caracterizacao.getClasseValidacaoSaidaPositiva());
+                caractObtida.setDocumentoEntrada(caracterizacao.getDocumentoEntrada());
                 caractObtida.setDocumentoSaidaNegativa(caracterizacao.getDocumentoSaidaNegativa());
                 caractObtida.setDocumentoSaidaPositiva(caracterizacao.getDocumentoSaidaPositiva());
                 caractObtida.setComentario(caracterizacao.getComentario());
