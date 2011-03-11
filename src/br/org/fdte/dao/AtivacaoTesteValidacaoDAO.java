@@ -14,36 +14,20 @@ import javax.persistence.RollbackException;
 
 public class AtivacaoTesteValidacaoDAO {
 
-    public static int deleteByExecution(ExecucaoTesteValidacao idExecution ) throws RollbackException {
-
-       EntityTransaction transaction = TesteDBManager.entityManager().getTransaction();
-       transaction.begin();
-
-       int retorno = 0;
-
-       try {
-           Query q = TesteDBManager.entityManager().createNamedQuery("AtivacaoTesteValidacao.deleteByExecution");
-           q.setParameter("execution", idExecution);
-       }
-       catch(Exception e) {
-            retorno = -1;
-            System.out.println(e.getMessage());
-       }
-
-       transaction.commit();
-       TesteDBManager.closeConnection();
-
-       return retorno;
-    }
-
-   public static int save (AtivacaoTesteValidacao ativ) {
-
-       int retorno = 0;
+    public static int deleteByExecution(ExecucaoTesteValidacao idExecution) throws RollbackException {
 
         EntityTransaction transaction = TesteDBManager.entityManager().getTransaction();
         transaction.begin();
 
-        TesteDBManager.entityManager().persist(ativ);
+        int retorno = 0;
+
+        try {
+            Query q = TesteDBManager.entityManager().createNamedQuery("AtivacaoTesteValidacao.deleteByExecution");
+            q.setParameter("execution", idExecution);
+        } catch (Exception e) {
+            retorno = -1;
+            System.out.println(e.getMessage());
+        }
 
         transaction.commit();
         TesteDBManager.closeConnection();
@@ -51,52 +35,69 @@ public class AtivacaoTesteValidacaoDAO {
         return retorno;
     }
 
-   public static Collection<AtivacaoTesteValidacao> findGoldenActivations(CaracterizacaoTesteValidacao ctv, SuiteTesteValidacao suite) throws Exception {
+    public static int save(AtivacaoTesteValidacao ativ) {
 
-       EntityTransaction transaction = TesteDBManager.entityManager().getTransaction();
-       transaction.begin();
+        int retorno = 0;
 
-       Query q = TesteDBManager.entityManager().createNamedQuery("ExecucaoTesteValidacao.findGoldenExecution");
-       q.setParameter("modoAtivacao", "G");
-       q.setParameter("idCaractTstValidacao", ctv);
-       q.setParameter("idSuite", suite);
+        EntityTransaction transaction = TesteDBManager.entityManager().getTransaction();
+        transaction.begin();
 
-       Collection<ExecucaoTesteValidacao> execs = q.getResultList();
+        if (ativ.getId() == null) {
+            TesteDBManager.entityManager().persist(ativ);
+        } else {
+            TesteDBManager.entityManager().merge(ativ);
+        }
 
-       transaction.commit();
-       TesteDBManager.closeConnection();
+        transaction.commit();
+        TesteDBManager.closeConnection();
 
-       if (execs != null && execs.size() > 0) {
-           return execs.iterator().next().getAtivacaoTesteValidacaoCollection();
-       }
-       else {
-           Collection<AtivacaoTesteValidacao> ativ = new ArrayList();
-           return ativ;
-       }
-   } // findGoldenActivations
+        return retorno;
+    }
 
-   public static List<AtivacaoTesteValidacao> findByExecution(ExecucaoTesteValidacao idExec, String resultado) {
+    public static Collection<AtivacaoTesteValidacao> findGoldenActivations(CaracterizacaoTesteValidacao ctv, SuiteTesteValidacao suite) throws Exception {
 
-       EntityTransaction transaction = TesteDBManager.entityManager().getTransaction();
-       transaction.begin();
-       List<AtivacaoTesteValidacao> ativs = null;
+        EntityTransaction transaction = TesteDBManager.entityManager().getTransaction();
+        transaction.begin();
 
-       try {
-           Query q = TesteDBManager.entityManager().createNamedQuery("AtivacaoTesteValidacao.findByIdExec");
-           q.setParameter("idExecucaoTesteValidacao", idExec);
-           q.setParameter("resultado", resultado);
+        Query q = TesteDBManager.entityManager().createNamedQuery("ExecucaoTesteValidacao.findGoldenExecution");
+        q.setParameter("modoAtivacao", "G");
+        q.setParameter("idCaractTstValidacao", ctv);
+        q.setParameter("idSuite", suite);
 
-           ativs = q.getResultList();
+        Collection<ExecucaoTesteValidacao> execs = q.getResultList();
 
-           transaction.commit();
-           
-       }catch(Exception e) {
-           System.out.println(e.getMessage());
-       }
-       finally {
-           TesteDBManager.closeConnection();
-           return ativs;
-       }  
+        transaction.commit();
+        TesteDBManager.closeConnection();
 
-   } //findByExecution
+        if (execs != null && execs.size() > 0) {
+            return execs.iterator().next().getAtivacaoTesteValidacaoCollection();
+        } else {
+            Collection<AtivacaoTesteValidacao> ativ = new ArrayList();
+            return ativ;
+        }
+    } // findGoldenActivations
+
+    public static List<AtivacaoTesteValidacao> findByExecution(ExecucaoTesteValidacao idExec, String resultado) {
+
+        EntityTransaction transaction = TesteDBManager.entityManager().getTransaction();
+        transaction.begin();
+        List<AtivacaoTesteValidacao> ativs = null;
+
+        try {
+            Query q = TesteDBManager.entityManager().createNamedQuery("AtivacaoTesteValidacao.findByIdExec");
+            q.setParameter("idExecucaoTesteValidacao", idExec);
+            q.setParameter("resultado", resultado);
+
+            ativs = q.getResultList();
+
+            transaction.commit();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            TesteDBManager.closeConnection();
+            return ativs;
+        }
+
+    } //findByExecution
 }
