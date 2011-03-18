@@ -13,15 +13,19 @@ public class ExecucaoTesteValidacaoDAO {
     public ExecucaoTesteValidacaoDAO(EntityManager manager) {
         this.manager = manager;
     }
-    
-    public List<ExecucaoTesteValidacao> getExecucoesTesteValidacaoBySuite (SuiteTesteValidacao suiteId) {
+
+    public List<ExecucaoTesteValidacao> getExecucoesTesteValidacaoBySuite(SuiteTesteValidacao suiteId) {
 
         Query q = this.manager.createNamedQuery("ExecucaoTesteValidacao.findBySuite");
         q.setParameter("idSuite", suiteId);
         return q.getResultList();
     }
 
-   public void delete(ExecucaoTesteValidacao exec) {
+    public void delete(ExecucaoTesteValidacao exec) {
         this.manager.remove(exec);
+    }
+
+    public void save(ExecucaoTesteValidacao exec) {
+        this.manager.persist(exec);
     }
 }

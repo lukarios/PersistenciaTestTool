@@ -14,25 +14,20 @@ import javax.persistence.RollbackException;
 
 public class AtivacaoTesteValidacaoDAO {
 
-    public static int deleteByExecution(ExecucaoTesteValidacao idExecution) throws RollbackException {
+    public static void deleteByExecution(ExecucaoTesteValidacao idExecution) throws RollbackException {
 
         EntityTransaction transaction = TesteDBManager.entityManager().getTransaction();
         transaction.begin();
-
-        int retorno = 0;
 
         try {
             Query q = TesteDBManager.entityManager().createNamedQuery("AtivacaoTesteValidacao.deleteByExecution");
             q.setParameter("execution", idExecution);
         } catch (Exception e) {
-            retorno = -1;
             System.out.println(e.getMessage());
         }
 
         transaction.commit();
         TesteDBManager.closeConnection();
-
-        return retorno;
     }
 
     public static int save(AtivacaoTesteValidacao ativ) {
@@ -42,10 +37,16 @@ public class AtivacaoTesteValidacaoDAO {
         EntityTransaction transaction = TesteDBManager.entityManager().getTransaction();
         transaction.begin();
 
-        if (ativ.getId() == null) {
-            TesteDBManager.entityManager().persist(ativ);
-        } else {
-            TesteDBManager.entityManager().merge(ativ);
+        try {
+
+            if (ativ.getId() == null) {
+                TesteDBManager.entityManager().persist(ativ);
+            } else {
+                TesteDBManager.entityManager().merge(ativ);
+            }
+        } catch (Exception e) {
+            System.out.println("*************ERRO ao salvar uma ativacao************" + e.getMessage());
+            retorno = -1;
         }
 
         transaction.commit();
@@ -100,4 +101,5 @@ public class AtivacaoTesteValidacaoDAO {
         }
 
     } //findByExecution
+
 }
