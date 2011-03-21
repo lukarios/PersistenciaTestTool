@@ -71,6 +71,9 @@ public class AtivacaoTesteValidacao implements Serializable {
     @Lob
     @Column(name = "documento_saida")
     private byte[] documentoSaida;
+    @Lob
+    @Column(name = "screenshot")
+    private byte[] screenShot;
     @Column(name = "resultado", length = 2147483647)
     private String resultado;
     @JoinColumn(name = "id_execucao_teste_validacao", referencedColumnName = "id", nullable = false)
@@ -144,6 +147,14 @@ public class AtivacaoTesteValidacao implements Serializable {
 
     public void setDocumentoSaida(byte[] documentoSaida) {
         this.documentoSaida = documentoSaida;
+    }
+
+    public byte[] getScreenshot() {
+        return screenShot;
+    }
+
+    public void setScreenshot(byte[] screenShot) {
+        this.screenShot = screenShot;
     }
 
     public String getResultado() {

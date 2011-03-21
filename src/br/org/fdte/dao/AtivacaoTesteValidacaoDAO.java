@@ -102,4 +102,25 @@ public class AtivacaoTesteValidacaoDAO {
 
     } //findByExecution
 
+    public static AtivacaoTesteValidacao findById(Long idActivation) {
+
+        EntityTransaction transaction = TesteDBManager.entityManager().getTransaction();
+        transaction.begin();
+
+        Query q = TesteDBManager.entityManager().createNamedQuery("AtivacaoTesteValidacao.findById");
+        q.setParameter("id", idActivation);
+
+        AtivacaoTesteValidacao execRetornada = null;
+
+        if (q.getResultList().size() > 0) {
+            execRetornada = (AtivacaoTesteValidacao) q.getResultList().get(0);
+        }
+        transaction.commit();
+        TesteDBManager.closeConnection();
+
+        return execRetornada;
+
+    }
+
+
 }
