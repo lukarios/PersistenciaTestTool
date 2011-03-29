@@ -11,8 +11,7 @@ public class TesteDBManager {
     private static EntityManager em;
 
     public TesteDBManager() {
-        if (emf == null)
-           //emf =  Persistence.createEntityManagerFactory("TesteLibraryPU");
+        if (emf == null)           
             emf =  Persistence.createEntityManagerFactory("TestToolPU");
 
         if (em == null)
@@ -41,7 +40,8 @@ public class TesteDBManager {
     
 
 public static void main(String[] args) throws ClassNotFoundException {
-new TesteDBManager();
+    TesteDBManager testDB = new TesteDBManager();
+    testDB.entityManager();
 }
 
 }

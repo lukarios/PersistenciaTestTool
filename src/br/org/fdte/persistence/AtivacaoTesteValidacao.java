@@ -76,8 +76,12 @@ public class AtivacaoTesteValidacao implements Serializable {
     private byte[] screenShot;
     @Column(name = "resultado", length = 2147483647)
     private String resultado;
+    @Column(name = "golden_compare", length = 2147483647)
+    private String goldenCompare;
     @JoinColumn(name = "id_execucao_teste_validacao", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
+    
+    
     private ExecucaoTesteValidacao idExecucaoTesteValidacao;
 
     public AtivacaoTesteValidacao() {
@@ -172,6 +176,15 @@ public class AtivacaoTesteValidacao implements Serializable {
     public void setIdExecucaoTesteValidacao(ExecucaoTesteValidacao idExecucaoTesteValidacao) {
         this.idExecucaoTesteValidacao = idExecucaoTesteValidacao;
     }
+
+    public String getGoldenCompare() {
+        return goldenCompare;
+    }
+
+    public void setGoldenCompare(String goldenCompare) {
+        this.goldenCompare = goldenCompare;
+    }
+
 
     @Override
     public int hashCode() {
