@@ -81,7 +81,7 @@ public class ExecucaoTesteValidacaoDAO {
 
     }*/
 
-   public static List getExecucoesTesteValidacaoPerGroup(SuiteTesteValidacao suiteId) {
+   /*public static List getExecucoesTesteValidacaoPerGroup(SuiteTesteValidacao suiteId) {
 
         EntityTransaction transaction = TesteDBManager.entityManager().getTransaction();
         transaction.begin();
@@ -96,7 +96,7 @@ public class ExecucaoTesteValidacaoDAO {
 
         return lstExec;
 
-    }
+    }*/
 
    /* public static int delete(int id) throws RollbackException {
 

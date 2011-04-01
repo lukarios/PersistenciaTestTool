@@ -26,7 +26,7 @@ public class AtivacaoTesteValidacaoDAO {
         TesteDBManager.closeConnection();
     }*/
 
-    public static int save(AtivacaoTesteValidacao ativ) {
+   /* public static int save(AtivacaoTesteValidacao ativ) {
 
         int retorno = 0;
 
@@ -49,7 +49,7 @@ public class AtivacaoTesteValidacaoDAO {
         TesteDBManager.closeConnection();
 
         return retorno;
-    }
+    }*/
 
    /* public static Collection<AtivacaoTesteValidacao> findGoldenActivations(CaracterizacaoTesteValidacao ctv, SuiteTesteValidacao suite) throws Exception {
 
@@ -76,7 +76,7 @@ public class AtivacaoTesteValidacaoDAO {
     * 
     */
 
-    public static List<AtivacaoTesteValidacao> findByExecution(ExecucaoTesteValidacao idExec, String resultado) {
+    /*public static List<AtivacaoTesteValidacao> findByExecution(ExecucaoTesteValidacao idExec, String resultado) {
 
         EntityTransaction transaction = TesteDBManager.entityManager().getTransaction();
         transaction.begin();
@@ -94,13 +94,13 @@ public class AtivacaoTesteValidacaoDAO {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
-            TesteDBManager.closeConnection();
+             TesteDBManager.closeConnection();
             return ativs;
         }
 
-    } //findByExecution
+    }*/ //findByExecution
 
-    public static AtivacaoTesteValidacao findById(Long idActivation) {
+    /*public static AtivacaoTesteValidacao findById(Long idActivation) {
 
         EntityTransaction transaction = TesteDBManager.entityManager().getTransaction();
         transaction.begin();
@@ -118,7 +118,7 @@ public class AtivacaoTesteValidacaoDAO {
 
         return execRetornada;
 
-    }
+    }*/
 
 
 }

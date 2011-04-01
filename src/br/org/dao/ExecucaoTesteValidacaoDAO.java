@@ -72,4 +72,14 @@ public class ExecucaoTesteValidacaoDAO {
         List<ExecucaoTesteValidacao> lstExec = q.getResultList();
         return lstExec;
     }
+
+    public List getExecucoesTesteValidacaoPerGroup(SuiteTesteValidacao suiteId) {
+
+        Query q = this.manager.createNamedQuery("ExecucaoTesteValidacao.findBySuiteOrderByGroup");
+        q.setParameter("idSuite", suiteId);
+
+        List<ExecucaoTesteValidacao> lstExec = q.getResultList();
+        return lstExec;
+
+    }
 }
