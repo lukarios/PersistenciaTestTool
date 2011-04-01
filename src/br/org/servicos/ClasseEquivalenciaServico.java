@@ -130,24 +130,6 @@ public class ClasseEquivalenciaServico {// implements ServiceInterface {
         return isNewCE;
     }
 
-    /* public void update(ClasseEquivalencia ce) {
-
-    try {
-
-    this.manager = DBManager.openManager();
-    this.manager.getTransaction().begin();
-
-
-    ClasseEquivalenciaDAO ceDao = new ClasseEquivalenciaDAO(manager);
-    ceDao.update(ce);
-
-    this.manager.getTransaction().commit();
-    } catch (Exception excpt) {
-    this.manager.getTransaction().rollback();
-    }
-
-
-    }*/
     public void delete(String nomeCE) {
         try {
 

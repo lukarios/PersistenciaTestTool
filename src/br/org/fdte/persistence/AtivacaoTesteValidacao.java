@@ -1,13 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package br.org.fdte.persistence;
 
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -80,8 +76,6 @@ public class AtivacaoTesteValidacao implements Serializable {
     private String goldenCompare;
     @JoinColumn(name = "id_execucao_teste_validacao", referencedColumnName = "id", nullable = false)
     @ManyToOne(optional = false)
-    
-    
     private ExecucaoTesteValidacao idExecucaoTesteValidacao;
 
     public AtivacaoTesteValidacao() {

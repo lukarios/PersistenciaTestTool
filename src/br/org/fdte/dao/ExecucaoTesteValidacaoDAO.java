@@ -10,7 +10,7 @@ import javax.persistence.RollbackException;
 
 public class ExecucaoTesteValidacaoDAO {
 
-    public static int getMaxIdGrupoExecPerSuite(SuiteTesteValidacao suiteId) {
+    /*public static int getMaxIdGrupoExecPerSuite(SuiteTesteValidacao suiteId) {
 
         int idEncontrado = 0;
 
@@ -28,9 +28,9 @@ public class ExecucaoTesteValidacaoDAO {
         TesteDBManager.closeConnection();
 
         return idEncontrado;
-    }
+    }*/
 
-    public static List getAll() {
+    /*public static List getAll() {
 
         EntityTransaction transaction = TesteDBManager.entityManager().getTransaction();
         transaction.begin();
@@ -43,9 +43,9 @@ public class ExecucaoTesteValidacaoDAO {
         TesteDBManager.closeConnection();
 
         return lstExec;
-    }
+    }*/
 
-    public static ExecucaoTesteValidacao getExecucaoTesteValidacao(int id) {
+/*    public static ExecucaoTesteValidacao getExecucaoTesteValidacao(int id) {
 
         EntityTransaction transaction = TesteDBManager.entityManager().getTransaction();
         transaction.begin();
@@ -62,9 +62,9 @@ public class ExecucaoTesteValidacaoDAO {
         TesteDBManager.closeConnection();
 
         return execRetornada;
-    }
+    }*/
 
-    public static List getExecucoesTesteValidacao(SuiteTesteValidacao suiteId) {
+    /*public static List getExecucoesTesteValidacao(SuiteTesteValidacao suiteId) {
 
         EntityTransaction transaction = TesteDBManager.entityManager().getTransaction();
         transaction.begin();
@@ -79,9 +79,9 @@ public class ExecucaoTesteValidacaoDAO {
 
         return lstExec;
 
-    }
+    }*/
 
-    public static List getExecucoesTesteValidacaoPerGroup(SuiteTesteValidacao suiteId) {
+   public static List getExecucoesTesteValidacaoPerGroup(SuiteTesteValidacao suiteId) {
 
         EntityTransaction transaction = TesteDBManager.entityManager().getTransaction();
         transaction.begin();
@@ -98,7 +98,7 @@ public class ExecucaoTesteValidacaoDAO {
 
     }
 
-    public static int delete(int id) throws RollbackException {
+   /* public static int delete(int id) throws RollbackException {
 
         EntityTransaction transaction = TesteDBManager.entityManager().getTransaction();
         transaction.begin();
@@ -107,7 +107,6 @@ public class ExecucaoTesteValidacaoDAO {
 
         Query q = TesteDBManager.entityManager().createNamedQuery("ExecucaoTesteValidacao.findById");
         q.setParameter("id", id);
-
 
         try {
             if (q.getResultList().size() > 0) {
@@ -125,15 +124,15 @@ public class ExecucaoTesteValidacaoDAO {
         TesteDBManager.closeConnection();
 
         return retorno;
-    }
+    }*/
 
-    public static int save(ExecucaoTesteValidacao exec) {
+  /*  public static int save(ExecucaoTesteValidacao exec) {
         int retorno = 0;
 
-        /*if (exec.getId() != null) {
-        Long idNulo = 0L;
-        exec.setId(idNulo);
-        }*/
+        //if (exec.getId() != null) {
+        //Long idNulo = 0L;
+        //exec.setId(idNulo);
+        //}
 
         //ExecucaoTesteValidacao execSalva = getExecucaoTesteValidacao(exec.getId().intValue());
 
@@ -162,7 +161,7 @@ public class ExecucaoTesteValidacaoDAO {
         TesteDBManager.closeConnection();
 
         return retorno;
-    }
+    }*/
 
    
 }

@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package br.org.fdte.persistence;
 
 import java.io.Serializable;
@@ -23,18 +18,12 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
-
 /* MB */
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.FetchType;
 
-/**
- *
- * @author MB
- */
 @Entity
 @Table(name = "execucao_teste_validacao", catalog = "test_tool", schema = "public")
 @NamedQueries({@NamedQuery(name = "ExecucaoTesteValidacao.findAll", 
