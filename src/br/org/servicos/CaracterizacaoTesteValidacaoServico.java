@@ -5,14 +5,21 @@ import br.org.dao.DocumentoDAO;
 import br.org.dao.EspecificoDAO;
 import br.org.fdte.persistence.CaracterizacaoTesteValidacao;
 import br.org.fdte.persistence.Especificos;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 
-public class CaracterizacaoTesteValidacaoServico {
+public class CaracterizacaoTesteValidacaoServico implements ServiceInterface {
 
     EntityManager manager;
 
-    public boolean save(CaracterizacaoTesteValidacao caracterizacao) {
+    @Override
+    public boolean save(Object obj) {
+
+        if (!(obj instanceof CaracterizacaoTesteValidacao))
+            return false;
+
+        CaracterizacaoTesteValidacao caracterizacao = (CaracterizacaoTesteValidacao)obj;
 
         boolean isNewCaracterizacao = false;
 
@@ -78,7 +85,7 @@ public class CaracterizacaoTesteValidacaoServico {
         return isNewCaracterizacao;
     }
 
-    public void update(CaracterizacaoTesteValidacao caracterizacao) {
+    /*public void update(CaracterizacaoTesteValidacao caracterizacao) {
         try {
 
             this.manager = DBManager.openManager();
@@ -92,7 +99,7 @@ public class CaracterizacaoTesteValidacaoServico {
         } catch (Exception excpt) {
             this.manager.getTransaction().rollback();
         }
-    }
+    }*/
 
     public void delete(String nomeCaracterizacao) {
 
@@ -141,10 +148,11 @@ public class CaracterizacaoTesteValidacaoServico {
         }
 
     }
+    
+    @Override
+    public List<Object> getAll() {
 
-    public List<CaracterizacaoTesteValidacao> getAll() {
-
-        List<CaracterizacaoTesteValidacao> lstCaract = null;
+        List<Object> lstCaract = new ArrayList<Object>();
 
         try {
             this.manager = DBManager.openManager();
@@ -152,7 +160,9 @@ public class CaracterizacaoTesteValidacaoServico {
 
             CaracterizacaoTesteValidacaoDAO dao = new CaracterizacaoTesteValidacaoDAO(manager);
 
-            lstCaract = dao.getAll();
+            for (Object obj : dao.getAll()) {
+                lstCaract.add(obj);
+            }
 
             this.manager.getTransaction().commit();
         } catch (Exception excpt) {
@@ -161,4 +171,5 @@ public class CaracterizacaoTesteValidacaoServico {
             return lstCaract;
         }
     }
+  
 }

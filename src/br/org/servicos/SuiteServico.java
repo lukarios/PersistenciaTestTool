@@ -7,10 +7,11 @@ import br.org.dao.SuiteValidacaoTesteValidacaoDAO;
 import br.org.fdte.persistence.ExecucaoTesteValidacao;
 import br.org.fdte.persistence.SuiteTesteValidacao;
 import br.org.fdte.persistence.SuiteValidacaoTesteValidacao;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 
-public class SuiteServico {
+public class SuiteServico implements ServiceInterface{
 
     EntityManager manager;
 
@@ -86,23 +87,7 @@ public class SuiteServico {
         return isNewSuite;
     }
 
-    /* public void update(SuiteTesteValidacao suite) {
-
-    try {
-
-    this.manager = DBManager.openManager();
-    this.manager.getTransaction().begin();
-
-    SuiteDAO suiteDao = new SuiteDAO(manager);
-    suiteDao.update(suite);
-
-    this.manager.getTransaction().commit();
-    } catch (Exception excpt) {
-    this.manager.getTransaction().rollback();
-    }
-
-
-    }*/
+    @Override
     public void delete(String suiteName) {
 
         try {
@@ -133,16 +118,18 @@ public class SuiteServico {
         }
     }
 
-    public List<SuiteTesteValidacao> getAll() {
+    public List<Object> getAll() {
 
-        List<SuiteTesteValidacao> lst = null;
+        List<Object> lst = new ArrayList<Object>();
 
         try {
             this.manager = DBManager.openManager();
             this.manager.getTransaction().begin();
 
             SuiteDAO suiteDao = new SuiteDAO(manager);
-            lst = suiteDao.getAll();
+            for (Object obj : suiteDao.getAll()) {
+                lst.add((SuiteTesteValidacao)obj);
+            }
 
             this.manager.getTransaction().commit();
         } catch (Exception excpt) {
@@ -172,4 +159,9 @@ public class SuiteServico {
             return list;
         }
     }
+
+    public boolean save(Object obj) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+   
 }

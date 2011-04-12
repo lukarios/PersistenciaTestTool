@@ -1,8 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package br.org.fdte.persistence;
 
 import java.io.Serializable;
@@ -14,10 +9,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-/**
- *
- * @author Luciana
- */
 @Entity
 @Table(name = "classe_validacao")
 @NamedQueries({@NamedQuery(name = "ClasseValidacao.findAll", query = "SELECT c FROM ClasseValidacao c"), @NamedQuery(name = "ClasseValidacao.findById", query = "SELECT c FROM ClasseValidacao c WHERE c.id = :id"), @NamedQuery(name = "ClasseValidacao.findByNome", query = "SELECT c FROM ClasseValidacao c WHERE c.nome = :nome")})

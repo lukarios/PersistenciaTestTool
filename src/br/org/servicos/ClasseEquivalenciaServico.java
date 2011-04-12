@@ -4,16 +4,18 @@ import br.org.dao.ClasseEquivalenciaDAO;
 import br.org.dao.ValorDAO;
 import br.org.fdte.persistence.ClasseEquivalencia;
 import br.org.fdte.persistence.Valor;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 
-public class ClasseEquivalenciaServico {// implements ServiceInterface {
+public class ClasseEquivalenciaServico implements ServiceInterface {
 
     EntityManager manager;
 
-    public List<ClasseEquivalencia> getAll() {
+    @Override
+    public List<Object> getAll() {
 
-        List<ClasseEquivalencia> lstCE = null;
+        List<Object> lstCE = new ArrayList<Object>();
 
         try {
             this.manager = DBManager.openManager();
@@ -21,7 +23,9 @@ public class ClasseEquivalenciaServico {// implements ServiceInterface {
 
             ClasseEquivalenciaDAO ceDao = new ClasseEquivalenciaDAO(manager);
 
-            lstCE = ceDao.getAll();
+            for (ClasseEquivalencia ce : ceDao.getAll()) {
+                lstCE.add(ce);
+            }           
 
             this.manager.getTransaction().commit();
         } catch (Exception excpt) {
@@ -31,6 +35,7 @@ public class ClasseEquivalenciaServico {// implements ServiceInterface {
         }
     }
 
+    @Override
     public ClasseEquivalencia getByName(String nomeCE) {
 
         ClasseEquivalencia ce = null;
@@ -45,9 +50,7 @@ public class ClasseEquivalenciaServico {// implements ServiceInterface {
             this.manager.getTransaction().commit();
         } catch (Exception excpt) {
             this.manager.getTransaction().rollback();
-        } finally {
-            //this.manager.close();
-            //this.manager = null;
+        } finally {            
             return ce;
         }
 
@@ -68,16 +71,20 @@ public class ClasseEquivalenciaServico {// implements ServiceInterface {
         } catch (Exception excpt) {
             this.manager.getTransaction().rollback();
         } finally {
-            //this.manager.close();
-            //this.manager = null;
             return ce;
         }
 
 
     }
 
-    public boolean save(ClasseEquivalencia ce) {
+    @Override
+    public boolean save(Object obj) {
 
+        if ( !(obj instanceof ClasseEquivalencia)) {
+            return false;
+        }
+
+        ClasseEquivalencia ce = (ClasseEquivalencia)obj;
         boolean isNewCE = false;
 
         try {
@@ -130,6 +137,7 @@ public class ClasseEquivalenciaServico {// implements ServiceInterface {
         return isNewCE;
     }
 
+    @Override
     public void delete(String nomeCE) {
         try {
 
@@ -152,7 +160,7 @@ public class ClasseEquivalenciaServico {// implements ServiceInterface {
             System.out.println(excpt.getMessage());
             this.manager.getTransaction().rollback();
         }
+    }   
 
 
-    }
 }

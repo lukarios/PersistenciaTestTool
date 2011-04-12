@@ -7,17 +7,25 @@ import br.org.dao.RegraDAO;
 import br.org.fdte.persistence.Atributo;
 import br.org.fdte.persistence.Regra;
 import br.org.fdte.persistence.TemplateDocumento;
+import java.util.ArrayList;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 import java.util.List;
 
-public class DocumentoServico {
+public class DocumentoServico implements ServiceInterface {
 
     EntityManager manager;
 
-    public boolean save(TemplateDocumento doc) {
+    @Override
+    public boolean save(Object obj) {
+
+        if (!(obj instanceof TemplateDocumento)) {
+            return false;
+        }
+
+        TemplateDocumento doc = (TemplateDocumento) obj;
 
         boolean isNewDocument = false;
 
@@ -37,24 +45,15 @@ public class DocumentoServico {
                 if (doc.getId() == null) {
                     docDao.save(doc);
                     isNewDocument = true;
-
-                    //lrb 25/02/2011
-                    //salvar as regras que foram vinculadas ao documento criado,
-                    //pois pode-se estar copiando um documento existente
-                    /*RegraDAO regraDao = new RegraDAO(manager);
-                    for (Regra regra : doc.getRegraCollection()) {
-                        regra.setIdTemplateDocumento(doc);
-                        regraDao.save(regra);
-                    }*/
                 } //o documento possui id isto é, ele já existe
                 //somente o seu nome foi alterado
                 else {
                     docDao.update(doc);
                 }
-
-            } else {
+            }
+            else {
                 docObtido.setArquivoXsd(doc.getArquivoXsd());
-                docObtido.setDirecao(doc.getDirecao());                
+                docObtido.setDirecao(doc.getDirecao());
                 docObtido.setTipoFisico(doc.getTipoFisico());
 
                 for (Atributo att : docObtido.getAtributoCollection()) {
@@ -68,7 +67,7 @@ public class DocumentoServico {
                     attDao.save(att);
                 }
 
-                RegraDAO regraDao = new RegraDAO(manager);                
+                RegraDAO regraDao = new RegraDAO(manager);
                 for (Regra regra : docObtido.getRegraCollection()) {
                     regraDao.delete(regra);
                 }
@@ -84,13 +83,15 @@ public class DocumentoServico {
                 docObtido.setRegraCollection(doc.getRegraCollection());
             }
             et.commit();
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             et.rollback();
             System.out.println(ex.getMessage());
         }
         return isNewDocument;
     }
 
+    @Override
     public void delete(String docName) {
 
         try {
@@ -114,11 +115,13 @@ public class DocumentoServico {
             docDao.delete(doc);
 
             this.manager.getTransaction().commit();
-        } catch (Exception excpt) {
+        }
+        catch (Exception excpt) {
             this.manager.getTransaction().rollback();
         }
     }
 
+    @Override
     public TemplateDocumento getByName(String nome) {
 
         TemplateDocumento doc = null;
@@ -132,18 +135,21 @@ public class DocumentoServico {
             doc = docDao.getByName(nome);
 
             this.manager.getTransaction().commit();
-        } catch (Exception excpt) {
+        }
+        catch (Exception excpt) {
             System.out.println(excpt.getMessage());
             this.manager.getTransaction().rollback();
-        } finally {
+        }
+        finally {
             return doc;
         }
 
     }
 
-    public List<TemplateDocumento> getAll() {
+    @Override
+    public List<Object> getAll() {
 
-        List<TemplateDocumento> lstDoc = null;
+        List<Object> lstDoc = new ArrayList<Object>();
 
         try {
             this.manager = DBManager.openManager();
@@ -151,13 +157,18 @@ public class DocumentoServico {
 
             DocumentoDAO docDao = new DocumentoDAO(manager);
 
-            lstDoc = docDao.getAll();
+            for (TemplateDocumento doc : docDao.getAll()) {
+                lstDoc.add(doc);
+            }
 
             this.manager.getTransaction().commit();
-        } catch (Exception excpt) {
+        }
+        catch (Exception excpt) {
             this.manager.getTransaction().rollback();
-        } finally {
+        }
+        finally {
             return lstDoc;
         }
     }
+    
 }
